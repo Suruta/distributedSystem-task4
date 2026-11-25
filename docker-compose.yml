@@ -34,17 +34,18 @@ services:
       - datanode2_data:/hadoop/dfs/data
 
   minio:
-    image: minio/minio
+    image: quay.io/minio/aistor/minio:latest
     container_name: local_s3_minio
     ports:
-      - "9001:9000"   # S3 API
-      - "9002:9001"   # Web console
+      - "9001:9000"
+      - "9002:9001"
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadminpassword
-    command: server /data --console-address ":9001"
     volumes:
       - minio_data:/data
+      - ./minio.license:/minio.license:ro
+    command: server /data --license /minio.license --console-address ":9001"
 
 volumes:
   namenode_data:

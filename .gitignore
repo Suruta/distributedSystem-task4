@@ -1,1 +1,5 @@
 .DS_Store
+minio.license
+.venv
+__pycache__/
+screenshots/
